@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ChatMessage extends Model
 {
     protected $fillable = [
-        'chat_room_id',
+        'room_id',
         'user_id',
         'message',
         'is_read',
@@ -20,9 +20,9 @@ class ChatMessage extends Model
         'read_at' => 'datetime',
     ];
 
-    public function chatRoom(): BelongsTo
+    public function room(): BelongsTo
     {
-        return $this->belongsTo(ChatRoom::class);
+        return $this->belongsTo(ChatRoom::class, 'room_id');
     }
 
     public function user(): BelongsTo
