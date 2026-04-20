@@ -11,7 +11,7 @@ class ChatRoom extends Model
 {
     protected $fillable = [
         'name',
-        'is_direct',
+        'type',
         'created_by',
     ];
 
@@ -27,13 +27,18 @@ class ChatRoom extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'chat_room_users')
-                    ->withPivot('last_read_at')
+                    ->withPivot('read_at')
                     ->withTimestamps();
     }
 
     public function messages(): HasMany
     {
         return $this->hasMany(ChatMessage::class);
+    }
+
+    public function lastMessage()
+    {
+        return $this->hasOne(ChatMessage::class)->latestOfMany();
     }
 
     public function latestMessage(): HasMany
@@ -44,9 +49,9 @@ class ChatRoom extends Model
     public function unreadCount(User $user): int
     {
         $pivot = $this->users()->where('user_id', $user->id)->first()?->pivot;
-        if (!$pivot || !$pivot->last_read_at) {
+        if (!$pivot || !$pivot->read_at) {
             return $this->messages()->count();
         }
-        return $this->messages()->where('created_at', '>', $pivot->last_read_at)->count();
+        return $this->messages()->where('created_at', '>', $pivot->read_at)->count();
     }
 }
