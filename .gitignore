@@ -1,42 +1,37 @@
 ```
-# Environment
-.env
-
 # Dependency directories
+node_modules/
 vendor/
 
-# Database
-database/database.sqlite
+# Laravel specific
+bootstrap/cache/
+bootstrap/cache/*
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+storage/logs/
+public/storage/
 
-# IDE
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE files
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# OS
+# OS generated files
 .DS_Store
 Thumbs.db
 
 # Logs
 *.log
 
-# Temporary files
-*.tmp
-*.swp
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# PHP specific
-*.php~
-**/vendor/**/composer.lock
-
-# Laravel specific
-bootstrap/cache/*
-storage/logs/*
-storage/framework/cache/data/*
-storage/framework/sessions/*
-storage/framework/views/*
-
+# Build artifacts
+dist/
+build/
+target/
 ```
